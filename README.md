@@ -8,6 +8,6 @@ What - An application which will require from user to input money, their prefere
 
 How - The project is written in Python 2.7 that uses OOPS concept and it is based on object and classes. 
 
-TourHelp will help tourist and locals to decide where is the convenient place to stay in Yerevan.
+TourHelp will help tourist and locals to decide where is the convenient place to stay in Armenia.
           It is like a personal travel assistant which is incredible easy to use. 
-          The user can the amount of money they have, their interests and time and as a result find a sutiable palce to stay.
+          The user can the amount of money they have,the rating of the hotel their interests and time and as a result find a sutiable               palce to stay.All hotels  are found according to hotels' rating.
