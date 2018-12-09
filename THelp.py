@@ -1,21 +1,29 @@
 import json
 
-class Hotel:
+class Node:
+    def __init__(self):
+        self.next = None
+
+class Hotel(Node):
     def __init__(self, name, location, rating):
+        Node.__init__(self)
         self.name = name
         self.location = location
         self.rating = rating
 
-class Reservation:
+
+class Reservation(Node):
     def __init__(self, from_date, to_date, price):
+        Node.__init__(self)
         self.price = price
         self.from_date = from_date
         self.to_date = to_date
 
 
-class Tourist:
+class Tourist(Node):
     def __init__(self, start_date, end_date,rating_low, rating_high, cost_low, cost_high, location):
-        self.strat_date = start_date
+        Node.__init__(self)
+        self.start_date = start_date
         self.end_date = end_date
         self.rating_low = rating_low
         self.rating_high = rating_high
@@ -23,10 +31,32 @@ class Tourist:
         self.cost_high = cost_high
         self.location = location
 
+class LinkedList:
+    def __init__(self):
+        self.head = None
+
+    def append(self,new_data):
+        if self.head is not None:
+            new_data.next = self.head
+            self.head = new_data
+        else:
+            self.head = new_data
+
+    def findRating(self, tourist):
+        temp = self.head
+        while temp is not None:
+            if temp.rating >= tourist.rating_low and temp.rating <= tourist.rating_high:
+                print "You can reserve " + temp.name
+            temp = temp.next
+        print "Found all hotels. "
+
+
+
+
 def loadhoteldata():
     with open('hote.json') as data_file:
         hotel_info = json.load(data_file)
-    list_ = list()
+    list_ = LinkedList()
     rest_house = Hotel("Multi Rest House", hotel_info["Multi Rest House"]["location"], hotel_info["Multi Rest House"]["rating"])
     list_.append(rest_house)
     dilijan_resort = Hotel("Dilijan Resort", hotel_info["Dilijan Resort"]["location"], hotel_info["Dilijan Resort"] ["rating"])
@@ -37,7 +67,7 @@ def loadhoteldata():
     list_.append(opera)
 
 
-    return hotel_info
+    return list_
 
 def loadtouristdata():
     with open('tourist1.json') as data_file:
@@ -54,13 +84,7 @@ def touristInput():
     location = raw_input("Please insert your desired location: ")
     return Tourist(start_date, end_date,rating_low, rating_high, cost_low, cost_high, location)
 
-def reserve(tourist,hotels):
-   for i in range(len(hotels)):
-       if tourist.location == hotels.location:
-           print "You reservation accepted."
-       else:
 
-           print "Sorry,"
 
 
 def main():
@@ -68,7 +92,8 @@ def main():
     #call function(s) asking user for inputs & storing inputs in json file
     hotels = loadhoteldata()
     tourist = touristInput()
-    reserve(tourist, hotels)
+    hotels.findRating(tourist)
+    print ""
 
 
 
